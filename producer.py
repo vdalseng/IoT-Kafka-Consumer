@@ -19,7 +19,7 @@ while True:
         "location": fake.city(),
         "temperature": round(random.uniform(15.0, 30.0), 2),
         "motion": bool(random.getrandbits(1)),
-        "timestamp": fake.iso8601()
+        # "timestamp": fake.iso8601()
     }
     producer.send("iot-sensors", data)
     print("Sent:", data)
