@@ -1,20 +1,26 @@
-# Install dependencies as needed:
-# pip install kagglehub[pandas-datasets]
-import kagglehub
-from kagglehub import KaggleDatasetAdapter
+import subprocess
+import sys
 
-# Set the path to the file you'd like to load
-file_path = ""
+if __name__ == "__main__":
+    try:
+        # Use the Python executable from the current environment
+        python_executable = sys.executable
 
-# Load the latest version
-df = kagglehub.load_dataset(
-  KaggleDatasetAdapter.PANDAS,
-  "taranvee/smart-home-dataset-with-weather-information",
-  file_path,
-  # Provide any additional arguments like 
-  # sql_query or pandas_kwargs. See the 
-  # documenation for more information:
-  # https://github.com/Kaggle/kagglehub/blob/main/README.md#kaggledatasetadapterpandas
-)
+        # Start producer.py
+        producer_process = subprocess.Popen([python_executable, "producer.py"])
+        print("Producer started.")
 
-print("First 5 records:", df.head())
+        # Start consumer.py
+        consumer_process = subprocess.Popen([python_executable, "consumer.py"])
+        print("Consumer started.")
+
+        # Wait for both processes to complete (or run indefinitely)
+        producer_process.wait()
+        consumer_process.wait()
+    except KeyboardInterrupt:
+        print("Shutting down...")
+    finally:
+        # Terminate both processes on exit
+        producer_process.terminate()
+        consumer_process.terminate()
+        print("Both producer and consumer terminated.")
