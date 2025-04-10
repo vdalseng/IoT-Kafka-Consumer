@@ -14,13 +14,19 @@ if __name__ == "__main__":
         consumer_process = subprocess.Popen([python_executable, "consumer.py"])
         print("Consumer started.")
 
-        # Wait for both processes to complete (or run indefinitely)
+        # Start plot_realtime.py
+        plot_process = subprocess.Popen([python_executable, "plot_realtime.py"])
+        print("Plotting started.")
+
+        # Wait for all processes to complete (or run indefinitely)
         producer_process.wait()
         consumer_process.wait()
+        plot_process.wait()
     except KeyboardInterrupt:
         print("Shutting down...")
     finally:
-        # Terminate both processes on exit
+        # Terminate all processes on exit
         producer_process.terminate()
         consumer_process.terminate()
-        print("Both producer and consumer terminated.")
+        plot_process.terminate()
+        print("All processes terminated.")
