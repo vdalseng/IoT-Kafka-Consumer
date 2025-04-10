@@ -12,14 +12,15 @@ producer = KafkaProducer(
 )
 
 devices = ["sensor-1", "sensor-2", "sensor-3"]
+cities = ["Oslo", "Berlin", "Paris", "Rome", "Copenhagen"]
 
 while True:
     data = {
         "device_id": random.choice(devices),
-        "location": fake.city(),
+        "location": random.choice(cities),
         "temperature": round(random.uniform(15.0, 30.0), 2),
         "motion": bool(random.getrandbits(1)),
-        # "timestamp": fake.iso8601()
+        "timestamp": fake.iso8601()
     }
     producer.send("iot-sensors", data)
     print("Sent:", data)

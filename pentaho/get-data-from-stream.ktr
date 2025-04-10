@@ -438,17 +438,22 @@
   </notepads>
   <order>
     <hop>
+      <from>JSON input</from>
+      <to>Write to log</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
       <from>Get records from stream</from>
       <to>JSON input</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Generate rows</from>
-      <to>JSON input</to>
-      <enabled>N</enabled>
+      <from>JSON input</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>JSON input</from>
+      <from>Select values</from>
       <to>Text file output</to>
       <enabled>Y</enabled>
     </hop>
@@ -481,7 +486,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>288</xloc>
+      <xloc>416</xloc>
       <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
@@ -490,7 +495,7 @@
     <name>JSON input</name>
     <type>JsonInput</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -561,6 +566,19 @@
         <path>$.motion</path>
         <type>Boolean</type>
         <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>timestamp</name>
+        <path>$.timestamp</path>
+        <type>Timestamp</type>
+        <format>yyyy-MM-dd'T'HH:mm:ss</format>
         <currency/>
         <decimal/>
         <group/>
@@ -686,6 +704,18 @@
         <length>-1</length>
         <precision>-1</precision>
       </field>
+      <field>
+        <name>timestamp</name>
+        <type>Timestamp</type>
+        <format>yyyy-MM-dd'T'HH:mm:ss</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -696,14 +726,46 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>752</xloc>
+      <xloc>816</xloc>
       <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Generate rows</name>
-    <type>RowGenerator</type>
+    <name>Write to log</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <loglevel>log_level_basic</loglevel>
+    <displayHeader>Y</displayHeader>
+    <limitRows>N</limitRows>
+    <limitRowsNumber>0</limitRowsNumber>
+    <logmessage/>
+    <fields>
+      </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>560</xloc>
+      <yloc>560</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -713,25 +775,26 @@
       <schema_name/>
     </partitioning>
     <fields>
-      <field>
-        <name>message</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>{"device_id":"sensor-1","location":"Oslo","temperature":24.5,"motion":true}
-</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>timestamp</name>
+        <rename>timestamp</rename>
+        <type>Timestamp</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy-MM-dd'T'HH:mm:ss
+</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
     </fields>
-    <limit>1000</limit>
-    <never_ending>N</never_ending>
-    <interval_in_ms>5000</interval_in_ms>
-    <row_time_field>now</row_time_field>
-    <last_time_field>FiveSecondsAgo</last_time_field>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -741,8 +804,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>336</xloc>
-      <yloc>352</yloc>
+      <xloc>688</xloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
