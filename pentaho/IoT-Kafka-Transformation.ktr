@@ -452,7 +452,7 @@
     <clusterName/>
     <topic>iot-sensors</topic>
     <consumerGroup>pentaho-group</consumerGroup>
-    <transformationPath>${Internal.Entry.Current.Directory}/pentaho/get-data-from-stream.ktr</transformationPath>
+    <transformationPath>${Internal.Entry.Current.Directory}/get-data-from-stream.ktr</transformationPath>
     <SUB_STEP/>
     <batchSize>1000</batchSize>
     <batchDuration>1000</batchDuration>
@@ -484,8 +484,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>512</xloc>
-      <yloc>464</yloc>
+      <xloc>416</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
