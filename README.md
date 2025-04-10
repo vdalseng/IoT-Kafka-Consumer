@@ -7,7 +7,6 @@
 
 - Virtual environment
 
-- 
 
 ### Creating a virtual environment (venv)
 For Windows: In your terminal, use **py -m venv .venv**
@@ -37,6 +36,8 @@ Inside the pentaho/ folder:
     Kafka settings like:
 
         localhost:9092 for broker
+
+        Set the full path to get-data-from-stream.ktr
 
         iot-sensors as topic
 
@@ -72,22 +73,14 @@ This does the actual message handling:
         Computing statistics (min, max, avg, etc.)
 
 
-#### 4. How to Use
-
-    Open IoT-Kafka-Transformation.ktr in Spoon
-
-    Open the Kafka Consumer step
-
-    Set the full path to get-data-from-stream.ktr
-
-    Save and Run IoT-Kafka-Transformation.ktr
-
-    Make sure your Kafka producer is running, and messages are coming in
-
-
 ### How to run
-Run docker-compose up -d (-d is optional, just for a detached terminal)
 
-Run main.py or just producer.py (main.py is to run both producer and consumer files if the Pentaho step fails, or just to check if the real time data is actually being consumed)
+    Run docker-compose up -d (-d is optional, just for a detached terminal)
 
-Run IoT-Kafka-Transformation in Pentaho
+    Run main.py or just producer.py (main.py is to run both producer and consumer files if the Pentaho step fails, or just to check if the real time data is actually being consumed)
+    
+    Run IoT-Kafka-Transformation.ktr
+
+    Let it generate data and save to the stream-output.csv file, stop the consumer transformation when satisfied with amount of samples.
+
+    Open analytics transformation to view the csv file for analytics.
