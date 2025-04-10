@@ -21,13 +21,15 @@ The needed transformation files are included in the pentaho folder inside this p
  
 ### How it works
 
-#### 1. Two Transformations Involved
+#### 1. Three Transformations Involved
 
-Inside the pentaho/ folder:
+Inside the pentaho folder:
 
     IoT-Kafka-Transformation.ktr: Main entry point, consumes Kafka messages.
 
     get-data-from-stream.ktr: A sub-transformation that parses and processes each Kafka message.
+
+    analytics.ktr: A transformation just to view the csv file for analytics
 
 #### 2. Main Transformation: IoT-Kafka-Transformation.ktr
 
@@ -83,4 +85,4 @@ This does the actual message handling:
 
     Let it generate data and save to the stream-output.csv file, stop the consumer transformation when satisfied with amount of samples.
 
-    Open analytics transformation to view the csv file for analytics.
+    Open analytics.ktr to view the csv file for analytics.
